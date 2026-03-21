@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #579c16;
+  --color-background-light: #F5F3EF;
+  --color-background-dark: #192111;
+  --color-surface-light: #ECEAE4;
+  --color-surface: #ECEAE4;
+  --color-text-main: #2C2B29;
+  --color-text-primary: #2C2B29;
+  --color-text-muted: #96948D;
+  --color-accent: #C2C8B8;
+  --color-accent-muted: #C2C8B8;
+  --color-border-color: #E0DDD6;
+
+  --font-display: "Manrope", sans-serif;
+
+  --tracking-wide: 0.05em;
+  --tracking-widest: 0.1em;
+}
+
+/* Base styles */
+body {
+    font-family: 'Manrope', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* Image treatment */
+.portrait-treatment {
+    filter: grayscale(100%) sepia(20%) hue-rotate(10deg);
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Vertical text */
+.writing-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+}
+.vertical-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+/* Custom scrollbar for webkit */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #F5F3EF;
+}
+html.dark ::-webkit-scrollbar-track {
+    background: #192111;
+}
+::-webkit-scrollbar-thumb {
+    background: #E0DDD6;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #96948D;
+}
+
+/* Hover Shifts */
+.hover-shift-target {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-trigger:hover .hover-shift-target {
+    transform: translateX(10px);
+}
+.hover-trigger:hover .text-muted {
+    color: #579c16;
+    transition: color 0.3s ease;
+}
+
+/* Sepia/warm wash overlay */
+.warm-wash::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(210, 195, 175, 0.2);
+    mix-blend-mode: multiply;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.link-underline {
+    position: relative;
+    text-decoration: none;
+}
+.link-underline::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-primary);
+    transform-origin: bottom right;
+    transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+}
+.link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
